@@ -1,0 +1,143 @@
+.login-full-container {
+    min-height: 100vh;
+    padding: 34px 16%;
+    /* add other styles if needed */
+}
+
+.left-grid {
+    position: relative;
+}
+
+.left-grid, .right-grid {
+    display: grid;
+    align-items: center;
+}
+
+.left-back-img {
+    position: absolute;
+    bottom: 0;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+.login-details-left {
+    padding: 20px;
+    background-image: linear-gradient(to right, #274bab, #294bad);
+    border-radius: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.login-banner_view {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-banner-section {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.login-banner-box {
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.mainblock.visible {
+    visibility: visible;
+    position: relative;
+    z-index: auto;
+}
+
+.mainblock {
+    overflow: hidden !important;
+    z-index: -5;
+}
+
+.university-text {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.explain-text {
+    font-size: 17px;
+}
+
+
+.left-banner-section p {
+  position: relative; /* bring above image if needed */
+  z-index: 2;
+}
+
+@media (min-width: 992px) {
+    .col-lg-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.user-account_cont {
+    margin: 20px 0;
+}
+
+.more-login_label {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #dfe1e5;
+    line-height: .1em;
+    margin: 0;
+}
+
+.login-details-left .more-login_label span {
+    background-color: #274bab !important;
+    color: #fff !important;
+}
+
+.more-login_label span {
+    background-color: #fafbfc;
+    padding: 0 8px;
+    font-size: 15px;
+    color: #000;
+}
+
+.login-details-left .divided {
+    position: relative;
+}
+
+.white-img img {
+    filter: brightness(0) invert(1);
+}
+
+/* */
+
+
+/* */
+
+
+.Rean {
+    max-width: 60%;
+}
+
+.login-details-left .divided::after {
+    content: "";
+    width: 1px;
+    position: absolute;
+    height: 100%;
+    background-color: #fff;
+    left: 50%;
+}
