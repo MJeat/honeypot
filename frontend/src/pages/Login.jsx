@@ -20,27 +20,36 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (username === "honeypot hotpot" && password === "hotpot") {
+  const isCorrect = username === "honeypot hotpot" && password === "hotpot";
+
+  try {
+    await fetch(`${BACKEND}/log`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username,
+        password,
+        status: isCorrect ? "SUCCESS" : "FAILED",
+        timestamp: new Date().toISOString(),
+      }),
+    });
+
+    if (isCorrect) {
       navigate("/home");
       return;
     }
 
-    try {
-      await fetch(`${BACKEND}/log`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-
-      setMsg("Invalid username or password");
-      setPassword("");
-    } catch (err) {
-      setMsg("Network error");
-      console.error(err);
-    }
-  };
+    // If incorrect, show error message
+    setMsg("Invalid username or password");
+    setPassword("");
+    setUsername("");
+  } catch (err) {
+    setMsg("Network error");
+    console.error(err);
+  }
+};
 
   return (
     <div className="login-container_camu">

